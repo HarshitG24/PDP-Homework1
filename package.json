@@ -1,0 +1,14 @@
+{
+  "name": "pdp-homework",
+  "version": "1.0.0",
+  "description": "This is my submission for pdp homework 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Harshit Gajjar",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.8.0"
+  }
+}
