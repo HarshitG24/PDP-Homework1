@@ -88,13 +88,6 @@ class WebPage extends Publication {
     return this.isPublication() && this.url !== undefined;
   }
 
-  //   formatDate(date = new Date()) {
-  //     let dt = new Date(date);
-  //     let dateString =
-  //       `${dt.getMonth() + 1}` + "/" + dt.getDate() + "/" + dt.getFullYear();
-  //     console.log(dateString);
-  //   }
-
   citeAPA() {
     return `${this.title}. Retrieved ${this.year}, from ${this.url}.`;
   }
@@ -104,7 +97,7 @@ class WebPage extends Publication {
   }
 }
 
-class PublicationManager {
+class ReferenceManager {
   constructor() {
     this.publications = [];
   }
@@ -123,13 +116,19 @@ class PublicationManager {
 
   printCitations(type) {
     for (let pub of this.publications) {
-      if (type === "APA") console.log(pub.citeAPA());
+      if (type === "APA") console.log(pub.citeAPA() + "\n");
       else console.log(pub.citeMLA());
     }
   }
+
+  removeCitation(title) {
+    this.publications = this.publications.filter(
+      (elem) => elem.title !== title
+    );
+  }
 }
 
-const manager = new PublicationManager();
+const manager = new ReferenceManager();
 manager.addBook("a", "b", "c", "d", "e", "f");
 
 manager.addBook("Rationality", "Christopher", 2021, "Oveja Negra");
@@ -137,7 +136,8 @@ manager.addBook("Rationality", "Christopher", 2021, "Oveja Negra");
 manager.addWebsite(
   "Programming Paradigms",
   "https://course.ccs.neu.edu/cs5010f18/lecture1.html",
-  2005,
-  new Date()
+  2005
 );
+manager.printCitations("APA");
+manager.removeCitation("a");
 manager.printCitations("APA");
