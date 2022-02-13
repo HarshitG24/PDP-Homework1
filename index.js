@@ -103,30 +103,80 @@ class ReferenceManager {
     this.publications = [];
   }
 
+  generateIndex() {
+    let identifier = 1;
+    if (this.publications.length > 0) {
+      let lastIndex = this.publications.length - 1;
+      identifier = this.publications[lastIndex]._id;
+      identifier = identifier + 1;
+    }
+
+    return identifier;
+  }
+
+  generateObject(classObj) {
+    return {
+      _id: this.generateIndex(),
+      classObj,
+    };
+  }
+
   addPaper(title, author, year, journal, volume) {
-    this.publications.push(new Paper(title, author, year, journal, volume));
+    this.publications.push(
+      this.generateObject(new Paper(title, author, year, journal, volume))
+    );
   }
 
   addBook(title, author, year, publisher) {
-    this.publications.push(new Book(title, author, year, publisher));
+    this.publications.push(
+      this.generateObject(new Book(title, author, year, publisher))
+    );
   }
 
   addWebsite(title, author, url, year) {
-    this.publications.push(new WebPage(title, author, url, year));
+    this.publications.push(
+      this.generateObject(new WebPage(title, author, url, year))
+    );
   }
 
   printCitations(type) {
     console.clear();
     console.log("\n");
+    if (this.publications.length > 0) {
+      for (let pub of this.publications) {
+        if (type.toLowerCase() === "apa")
+          console.log(pub.classObj.citeAPA() + "\n");
+        else console.log(pub.classObj.citeMLA() + "\n");
+      }
+    } else {
+      console.log("No publications found\n");
+    }
+  }
+
+  printPublications() {
     for (let pub of this.publications) {
-      if (type.toLowerCase() === "apa") console.log(pub.citeAPA() + "\n");
-      else console.log(pub.citeMLA());
+      console.log(pub._id + " =====>   " + JSON.stringify(pub));
     }
   }
 
   removeCitation() {
-    const firstElement = this.publications.shift();
-    console.log("\n\nThe removed element is: " + JSON.stringify(firstElement));
+    // const firstElement = this.publications.shift();
+    // console.log("\n\nThe removed element is: " + JSON.stringify(firstElement));
+    console.clear();
+    if (this.publications.length > 0) {
+      this.printPublications();
+      let indexToDelete = prompt(
+        "Specify the id, of the citation to be deleted: "
+      );
+
+      console.log("The list of publications", this.publications);
+      console.log("The entered id to delete", indexToDelete);
+      this.publications = this.publications.filter(
+        (e) => e._id !== parseInt(indexToDelete)
+      );
+    } else {
+      console.log("No publications to delete\n");
+    }
   }
 
   async menuDrivenProgram() {
@@ -203,8 +253,6 @@ class ReferenceManager {
 
         // console.log("\nEnter Volume: ");
         // obj = { ...obj, volume: await this.getUserInput() };
-
-        console.log("my obj", obj);
 
         this.addPaper(obj.title, obj.author, obj.year, obj.journal, obj.volume);
         break;
