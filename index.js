@@ -160,8 +160,6 @@ class ReferenceManager {
   }
 
   removeCitation() {
-    // const firstElement = this.publications.shift();
-    // console.log("\n\nThe removed element is: " + JSON.stringify(firstElement));
     console.clear();
     if (this.publications.length > 0) {
       this.printPublications();
@@ -188,12 +186,9 @@ class ReferenceManager {
       console.log("2. Add Paper\n");
       console.log("3. Add Webpage\n");
       console.log("4. Display All Publications\n");
-      console.log("5. Search for an author online\n");
+      console.log("5. Differentiating Feature - Search for an author online\n");
       console.log("6. Delete Citation\n");
       console.log("7. Exit\n");
-      // console.log("Enter your choice: ");
-      // userInput = await this.getUserInput();
-      // await
       await this.menusCalls(prompt("Enter your choice: "));
     } while (userInput !== "7");
   }
@@ -204,18 +199,6 @@ class ReferenceManager {
       case "1":
         console.clear();
         console.log("Please enter details for book:\n");
-
-        // console.log("Enter Title: ");
-        // obj = { ...obj, title: await this.getUserInput() };
-
-        // console.log("\nEnter Author: ");
-        // obj = { ...obj, author: await this.getUserInput() };
-
-        // console.log("\nEnter Year: ");
-        // obj = { ...obj, year: await this.getUserInput() };
-
-        // console.log("\nEnter Publisher: ");
-        // obj = { ...obj, publisher: await this.getUserInput() };
 
         obj = {
           title: prompt("Enter Title: "),
@@ -239,20 +222,6 @@ class ReferenceManager {
           journal: prompt("Enter Journal: "),
           volume: prompt("Enter Volume: "),
         };
-        // console.log("Enter Title: ");
-        // obj = { ...obj, title: await this.getUserInput() };
-
-        // console.log("\nEnter Author: ");
-        // obj = { ...obj, author: await this.getUserInput() };
-
-        // console.log("\nEnter Year: ");
-        // obj = { ...obj, year: await this.getUserInput() };
-
-        // console.log("\nEnter Journal: ");
-        // obj = { ...obj, journal: await this.getUserInput() };
-
-        // console.log("\nEnter Volume: ");
-        // obj = { ...obj, volume: await this.getUserInput() };
 
         this.addPaper(obj.title, obj.author, obj.year, obj.journal, obj.volume);
         break;
@@ -260,15 +229,6 @@ class ReferenceManager {
       case "3":
         console.clear();
         console.log("Please enter details for Webpage:\n");
-
-        // console.log("Enter Title: ");
-        // obj = { ...obj, title: await this.getUserInput() };
-
-        // console.log("\nEnter url: ");
-        // obj = { ...obj, url: await this.getUserInput() };
-
-        // console.log("\nEnter Year: ");
-        // obj = { ...obj, year: await this.getUserInput() };
 
         obj = {
           ...obj,
@@ -283,7 +243,6 @@ class ReferenceManager {
 
       case "4":
         console.clear();
-        // console.log("\nEnter the type of Citation (APA/ MLA): ");
         this.printCitations(prompt("Enter the type of Citation (APA/ MLA): "));
         break;
 
@@ -310,19 +269,12 @@ class ReferenceManager {
 
   async getAuthor() {
     console.clear();
-    // console.log("Search for Author (Enter spaces in name, if any)");
-    let author = prompt("Search for Author (Enter spaces in name, if any) ");
+    let author = prompt("Search for Author (Enter spaces in name, if any): ");
     author = author.replaceAll(/ /g, "%20");
 
     let authorDetails = await axios.get(
       `https://openlibrary.org/search/authors.json?q=${author}`
     );
-
-    console.log("authorDetails, ", authorDetails);
-
-    // let authorData = authorDetails?.data?.docs || [];
-    // console.log("authorDetails", authorData);
-
     await this.printAuthorDetails(authorDetails);
   }
 
@@ -342,6 +294,8 @@ class ReferenceManager {
       console.log("\nWork Count: ", data?.work_count || "");
       console.log("\nBirth Date: ", data?.birth_date || "");
       console.log("\n\n");
+    } else {
+      console.log("\nNo author found..");
     }
   }
 }
