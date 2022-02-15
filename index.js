@@ -187,7 +187,7 @@ class ReferenceManager {
       console.log("3. Add Webpage\n");
       console.log("4. Display All Publications\n");
       console.log("5. Differentiating Feature - Search for an author online\n");
-      console.log("6. Delete Citation\n");
+      console.log("6. Delete Publication/Citation\n");
       console.log("7. Exit\n");
       await this.menusCalls(prompt("Enter your choice: "));
     } while (userInput !== "7");
