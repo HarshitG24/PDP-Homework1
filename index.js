@@ -1,5 +1,4 @@
 const axios = require("axios").default;
-const waitForUserInput = require("wait-for-user-input");
 const prompt = require("prompt-sync")();
 class Publication {
   constructor(title, author, year) {
@@ -260,11 +259,6 @@ class ReferenceManager {
       default:
         process.exit();
     }
-  }
-
-  async getUserInput() {
-    let userInput = await waitForUserInput("");
-    return userInput;
   }
 
   async getAuthor() {
