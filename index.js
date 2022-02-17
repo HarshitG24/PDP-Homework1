@@ -163,11 +163,8 @@ class ReferenceManager {
     if (this.publications.length > 0) {
       this.printPublications();
       let indexToDelete = prompt(
-        "Specify the id, of the citation to be deleted: "
+        "\n\nSpecify the id, of the citation to be deleted: "
       );
-
-      console.log("The list of publications", this.publications);
-      console.log("The entered id to delete", indexToDelete);
       this.publications = this.publications.filter(
         (e) => e._id !== parseInt(indexToDelete)
       );
