@@ -6,6 +6,7 @@ This project is made by Harshit Bhavesh Gajjar
 * Change directory to **PDP-Homework1** and open the project in your favourite editor, either VS Code or Sublime
 * Run **npm install** or **yarn install** to install **node_modules** in the project. This step is mandatory for the project to work.
 * To run the project, use the following command: **node index.js**
+* Open the terminal in full size to view the output and responses and for better experience
 
 # Packages used in the project
 * [Axios](https://www.npmjs.com/package/axios) -> This is used to make HTTP Api calls in the project 
